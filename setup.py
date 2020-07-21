@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-import sqlite3
+import sqlite3,os
 
-database =("vehicle_record.db",)
-connection = sqlite3.connect(database[0])
+database =os.path.join(os.path.dirname(os.path.abspath(__file__)),"vehicle_record.db")
+connection = sqlite3.connect(database)
 query="""CREATE TABLE IF NOT EXISTS Vehicle (ID TEXT PRIMARY KEY, address TEXT)"""
 cur=connection.cursor()
 cur.execute(query)
