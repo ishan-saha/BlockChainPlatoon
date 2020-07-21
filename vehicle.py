@@ -19,7 +19,7 @@ platoon = list()
 chain=list()
 temp =''
 # this is the Server ip address and port, broadcast and the receiver and self IP Addr
-SERVER = ('127.0.0.1',9090)
+SERVER = ('vehicleserver.domain.name',9090) # add vehicleserver.domain.name to the /etc/hosts file for the vehicle OS corrosponding to the ip of the server
 BROADCAST = ("255.255.255.255",9092)
 ME = (get_ip(),9091)
 Receiver=bcast.BroadCastReceiver(9092)
