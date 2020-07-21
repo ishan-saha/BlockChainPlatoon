@@ -90,4 +90,6 @@ with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as SOCKET:
     SOCKET.sendto(ID[0].encode()+b":leader|"+str(end-start).encode(),SERVER)
     SOCKET.close()
 
+with open('block.dat','w') as file:
+    file.writelines(chain)
 print("[!] Bye!")
