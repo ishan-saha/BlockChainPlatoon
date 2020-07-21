@@ -66,7 +66,7 @@ def platooning():
                 vehicle_connect(row[1],platoon)
             # making space for new 5 vehicles 
             cur=connection.cursor()
-            query="""DELETE * FROM Vehicle"""
+            query="""DELETE FROM Vehicle"""
             cur.execute(query)
             connection.commit()
             cur.close()
