@@ -74,7 +74,7 @@ for count in range(5):
         # the speed will be stored in the list
         print('[!] Waiting for my peers!')
         for block, addr in Receiver:
-            speedlist.append(NewChain.validated_block(block.split(":")[-1]))
+            speedlist.append(NewChain.validated_block(block.decode().split(":")[-1]))
             print("[!] Just added another block to the chain!")
             break
 
