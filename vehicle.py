@@ -53,6 +53,7 @@ print('[!] Yay! Made the first block!')
 chain=NewChain.ret_chain()
 
 Sender=socket.socket(socket.AF_INET,socket.SOCK_DGRAM) # socket for sending the data
+Sender.setsockopt(socket.SOL_SOCKET,socket.SO_BROADCAST,1) # to send msg to broadcast otherwise UDP socket cant send to broadcast
 
 speedlist=[]
 
@@ -63,7 +64,7 @@ for count in range(5):
     if platoon[count][0]==ID[0]: 
         # if it is this machines trun then it will make a block and send it
         # it will use the speed variable that is random as the transaction detail
-        print('[!] Just sent my Speed to the peers! Im speed! ;D')
+        print('[!] Just sent my Speed to the peers! I am speed! ;D')
         speedlist.append(Speed)
         NewChain.add_block(Speed)
         Sender.sendto(ID[0].encode()+b":"+NewChain.ret_chain()[-1],BROADCAST)
