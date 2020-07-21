@@ -66,7 +66,7 @@ for count in range(5):
         print('[!] Just sent my Speed to the peers! Im speed! ;D')
         speedlist.append(Speed)
         NewChain.add_block(Speed)
-        Sender.sendto(ID[0].encode()+b":"+NewChain.ret_chain()[-1].encode(),BROADCAST)
+        Sender.sendto(ID[0].encode()+b":"+NewChain.ret_chain()[-1],BROADCAST)
     else:
         # it will wait for other peers to send the block and them mine the data
         # the speed will be stored in the list
