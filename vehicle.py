@@ -80,7 +80,7 @@ for count in range(5):
 platoon_leader=platoon[speedlist.index(max(speedlist))][0]
 
 # adding the last 7th block having the platoon leader information 
-NewChain.add_block("The platoon leader is"+platoon_leader)
+NewChain.add_block("The platoon leader is",platoon_leader)
 chain=NewChain.ret_chain()
 
 # end time 
