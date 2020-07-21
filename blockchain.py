@@ -4,11 +4,11 @@ import base64
 class Block():
     """ This class is to create a block that can be later added to the chain. 
         its not including the time in the hash as the clock sync is not implemented. """
-    def __init__(self,index,proof,previous_hash,transaction): 
-        self.index = str(index)  
-        self.proof = str(proof)  
-        self.previous_hash = previous_hash  
-        self.transaction = transaction
+    def __init__(self,I,P,PH,T): 
+        self.index = str(I)  
+        self.proof = str(P)  
+        self.previous_hash = PH  
+        self.transaction = T
         self.block=b''
 
     def Hash(self):
@@ -33,8 +33,8 @@ class Chain:
     def __init__(self):
         self.chain=list()
         self.hashlist=[0]
-        self.proof='0'
-        self.index=0
+        self.proof=['0']
+        self.index=[0]
 
     
     @staticmethod
@@ -45,31 +45,29 @@ class Chain:
             temp+=1
         return str(temp)
 
-    def add_block(self,transaction):
-        NewBlock = Block(self.index,self.proof,self.hashlist[-1],transaction)
+    def add_block(self,T):
+        NewBlock = Block(self.index[-1],self.proof[-1],self.hashlist[-1],T)
         self.chain.append(NewBlock.generate())
         self.hashlist.append(NewBlock.Hash())# this is to create the list of hashes and the last hash will be used to verify the comming block 
-        self.index+=1 # this will keep the index updated
-        self.proof=Chain.proof_of_work(self.proof) # this will keep the next proof of work ready to check from the new block that will come from other vehicles and can be validated
+        self.index.append(self.index[-1]+1) # this will keep the index updated
+        self.proof.append(Chain.proof_of_work(self.proof[-1])) # this will keep the next proof of work ready to check from the new block that will come from other vehicles and can be validated
     
     
     @staticmethod
     def mine(block):
         temp = base64.b64decode(block)
-        index, previous_hash, transaction, proof = temp.decode().split("|")
-        return index, previous_hash, transaction, proof
+        I, PH, T, P = temp.decode().split("|")
+        return int(I), str(PH), T, int(P)
     
     def validated_block(self,block):
-        index, previous_hash, transaction, proof = Chain.mine(block)
-        if index == self.index and proof == self.proof and previous_hash == self.hashlist[-1]:
-            self.chain.append(block) # adding the block if validation true
-            self.index+=1 # updating the index 
-            self.proof=Chain.proof_of_work(proof)# updating the proof for next round
-            self.hashlist.append(Block(index,proof,previous_hash,transaction).Hash()) #updating the hashlist for next round
-            return str(transaction) 
+        I, PH, T, P = Chain.mine(block)
+        if I == int(self.index[-1]) and P == int(self.proof[-1]) and PH == self.hashlist[-1]:
+            self.add_block(T)
+            return str(T)
         else:
             return False
 
     def ret_chain(self):
         return self.chain
-
+    def get_current(self):
+        print(self.index[-1],self.proof[-1],self.hashlist[-1])
