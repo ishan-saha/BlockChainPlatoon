@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 #importing all the libraries
+import os
 import bcast
 import socket
 import random
@@ -8,7 +9,7 @@ import multiprocessing
 
 
 # database settings
-database =("vehicle_record.db",)
+database =os.path.join(os.path.dirname(os.path.abspath(__file__)),"vehicle_record.db")
 
 # this is a simple socket connection function
 def vehicle_connect(IP,data):
