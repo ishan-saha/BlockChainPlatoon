@@ -22,7 +22,7 @@ def vehicle_connect(IP,data):
 # this function will start to listen to the broadcast and put the vehicles in the database
 def listner():
     try:
-        connection = sqlite3.connect(database[0])
+        connection = sqlite3.connect(database)
     except Exception as e:
         print(e)
     finally:
@@ -48,7 +48,7 @@ def listner():
 # this function will set the platoon and send the vehicles their peers...
 def platooning():
     try:
-        connection = sqlite3.connect(database[0])
+        connection = sqlite3.connect(database)
     except Exception as e:
         print(e)
     finally:
