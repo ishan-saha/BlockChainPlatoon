@@ -67,6 +67,7 @@ for count in range(5):
         print('[!] Just sent my Speed to the peers! I am speed! ;D')
         speedlist.append(Speed)
         NewChain.add_block(Speed)
+        time.sleep(1)
         Sender.sendto(ID[0].encode()+b":"+NewChain.ret_chain()[-1],BROADCAST)
     else:
         # it will wait for other peers to send the block and them mine the data
@@ -87,7 +88,7 @@ chain=NewChain.ret_chain()
 end=time.time()
 
 with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as SOCKET:
-    SOCKET.sendto(ID[0].encode()+b":leader|"+str(end-start).encode(),SERVER)
+    SOCKET.sendto(ID[0].encode()+b":leader|"+str(end-start-5).encode(),SERVER)
     SOCKET.close()
 
 with open('block.dat','w') as file:
