@@ -95,5 +95,5 @@ with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as SOCKET:
 
 with open('Chain.dat','wb') as file:
     for block in chain:
-        file.write(block)
+        file.write(b"\nBloack: "+ block)
 print("[!] Bye!")
