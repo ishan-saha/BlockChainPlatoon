@@ -77,8 +77,10 @@ for count in range(5):
             speedlist.append(NewChain.validated_block(block.decode().split(":")[-1]))
             print("[!] Just added another block to the chain!")
             break
-
-platoon_leader=platoon[speedlist.index(max(speedlist))][0]
+try:
+    platoon_leader=platoon[speedlist.index(max(speedlist))][0]
+except:
+    pass
 
 # adding the last 7th block having the platoon leader information 
 NewChain.add_block("The platoon leader is"+platoon_leader)
@@ -91,6 +93,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as SOCKET:
     SOCKET.sendto(ID[0].encode()+b":leader|"+str(end-start-5).encode(),SERVER)
     SOCKET.close()
 
-with open('block.dat','w') as file:
-    file.writelines(str(chain))
+with open('Chain.dat','wb') as file:
+    for block in chain:
+        file.write(block)
 print("[!] Bye!")
