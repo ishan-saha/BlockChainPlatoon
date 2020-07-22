@@ -82,16 +82,17 @@ try:
     # adding the last 7th block having the platoon leader information 
     NewChain.add_block("The platoon leader is"+platoon_leader)
     chain=NewChain.ret_chain()
+    
+    print("[!] I am the Leader!")
+    # end time 
+    end=time.time()
+
+    with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as SOCKET:
+        SOCKET.sendto(ID[0].encode()+b":leader|"+str(end-start-5).encode(),SERVER)
+        SOCKET.close()
+
 except:
     pass
-
-
-# end time 
-end=time.time()
-
-with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as SOCKET:
-    SOCKET.sendto(ID[0].encode()+b":leader|"+str(end-start-5).encode(),SERVER)
-    SOCKET.close()
 
 with open('Chain.dat','wb') as file:
     for block in chain:
